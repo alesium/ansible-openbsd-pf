@@ -1,0 +1,2 @@
+- name: reload pf
+  command: '"{{ openbsd_pfctl_command }}" -f {{ openbsd_pf_conf_dest }}'

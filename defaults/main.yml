@@ -1,0 +1,5 @@
+openbsd_pf_conf_src: "pf.conf.j2"
+openbsd_pf_conf_dest: "/etc/pf.conf"
+openbsd_pfctl_command: "/sbin/pfctl"
+openbsd_pf_service_name: "pf"
+openbsd_pf_activate_ip_forwarding: "true"

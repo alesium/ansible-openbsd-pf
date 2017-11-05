@@ -1,0 +1,20 @@
+- name: copy pf.conf
+  tags: openbsd-pf
+  template:
+    src: "{{ openbsd_pf_conf_src }}"
+    dest: "{{ openbsd_pf_conf_dest}}"
+    mode: "0600"
+    owner: "root"
+    group: "wheel"
+    backup: "yes"
+- name: test pf
+  tags: openbsd-pf
+  command: '"{{ openbsd_pfctl_command }}" -nf {{ openbsd_pf_conf_dest }}'
+  notify: reload pf
+- name: enable net.inet.ip.forwarding=1 in sysctl.conf
+  tags: openbsd-pf
+  sysctl:
+    name: "net.inet.ip.forwarding"
+    value: "1"
+    state: "present"
+  when: openbsd_pf_activate_ip_forwarding == "true"
