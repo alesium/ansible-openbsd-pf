@@ -7,10 +7,15 @@
     owner: "root"
     group: "wheel"
     backup: "yes"
+  register: copy_pf
+
 - name: test pf
   tags: openbsd-pf
   command: '"{{ openbsd_pfctl_command }}" -nf {{ openbsd_pf_conf_dest }}'
   notify: reload pf
+  when: copy_pf.changed
+
+
 - name: enable net.inet.ip.forwarding=1 in sysctl.conf
   tags: openbsd-pf
   sysctl:
